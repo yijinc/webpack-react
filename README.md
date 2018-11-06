@@ -11,8 +11,10 @@
 
 - `index.html` ：使用 [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin) ，`InterpolateHtmlPlugin.js`为子插件，为了替代模版中的 `%PUBLIC_URL%` ，这个只能放在HtmlWebpackPlugin之后。public文件夹下的文件并没有被复制到目标dist目录，可以使用 [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin) 复制，或者在 `InterpolateHtmlPlugin.js`中自定义写入
 
+- 后续可以将各种path 写成配置
 
-推荐一些常用插件
+
+一些常用插件
 - rem布局 [px2rem-postcss](https://github.com/songsiqi/px2rem-postcss)
 - 雪碧图自动生成工具 [webpack-spritesmith](https://github.com/mixtur/webpack-spritesmith)
 - 打包外的文件复制 [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin) 
