@@ -3,6 +3,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 
+    mode: 'none',
+
     entry: {
         polyfills: path.resolve(__dirname, './polyfills.js'),
         index: path.resolve(__dirname, '../src/index.js')
@@ -45,6 +47,6 @@ module.exports = {
             root: path.resolve(__dirname, '../'),
             verbose: true,
             dry: false
-        }),
+        })
     ]
 };

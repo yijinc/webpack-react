@@ -2,10 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InterpolateHtmlPlugin = require('./InterpolateHtmlPlugin');
 const common = require('./webpack.common.js');
-
-
-process.env.PUBLIC_URL = 'lefjlsa'
 
 module.exports = merge(common, {
 
@@ -16,8 +14,7 @@ module.exports = merge(common, {
     output: {
         filename: 'js/[name].bundle.js',
         chunkFilename: 'js/[name].chunk.js',
-        // publicPath: path.resolve(__dirname, '../public')
-        // path: path.resolve(__dirname, '../dist')
+        publicPath: '/'
     },
 
     module: {
@@ -58,6 +55,9 @@ module.exports = merge(common, {
             template: path.resolve(__dirname, '../public/index.html'),
             filename: 'index.html',
             inject: 'body'
+        }),
+        new InterpolateHtmlPlugin({
+            PUBLIC_URL: '' // output.publicPath
         })
     ],
 

@@ -1,9 +1,12 @@
+const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const InterpolateHtmlPlugin = require('./InterpolateHtmlPlugin');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
@@ -13,10 +16,10 @@ module.exports = merge(common, {
     devtool: false,
 
     output: {
-        filename: '[name]-[chunkhash:8].bundle.js',
+        filename: 'js/[name].[chunkhash:8].bundle.js',
+        chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
         path: path.resolve(__dirname, '../dist'),
-        // publicPath: 'http://www.example.com/', // cdn or service
-        chunkFilename: '[name]-[chunkhash:8].chunk.js'
+        publicPath: '/', // http://example.com  // cdn or service
     },
 
     module: {
@@ -56,12 +59,6 @@ module.exports = merge(common, {
     },
 
     plugins: [
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: '[name]-[hash:8].css',
-            chunkFilename: '[id]-[chunkhash:8].css'
-        }),
         new HtmlWebpackPlugin({
             // https://github.com/jantimon/html-webpack-plugin
             template: path.resolve(__dirname, '../public/index.html'),
@@ -81,7 +78,22 @@ module.exports = merge(common, {
                 minifyCSS: true,
                 minifyURLs: true
             }
-        })
+        }),
+        new InterpolateHtmlPlugin({
+            PUBLIC_URL: '' // output.publicPath
+        }),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: 'css/[name]-[hash:8].css',
+            chunkFilename: 'css/[id]-[chunkhash:8].css'
+        }),
+        // Generate a manifest file which contains a mapping of all asset filenames
+        // to their corresponding output file so that tools can pick it up without
+        // having to parse `index.html`.
+        new ManifestPlugin({
+            fileName: 'asset-manifest.json',
+        }),
     ],
 
     optimization: {
