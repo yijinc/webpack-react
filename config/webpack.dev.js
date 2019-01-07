@@ -28,7 +28,7 @@ module.exports = merge(common, {
                         options: {
                             importLoaders: 1,
                             modules: true, 
-                            localIdentName: '[name]-[hash:base64:6]'
+                            localIdentName: '[path][name]_[local]--[hash:base64:5]'
                         }
                     },
                     {
@@ -64,7 +64,7 @@ module.exports = merge(common, {
     devServer: {
         contentBase: path.resolve(__dirname, '../public'),
         hot: true,
-        port: 3000,
+        port: 3001,
         // proxy: {
         //     '/api': {
         //         target: 'http://207.246.90.98/api',
