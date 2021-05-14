@@ -1,19 +1,25 @@
+import _ from 'lodash';
 import './style.css';
 import img from './header.jpeg';
-import printMe from './print.js';
+import Print from './print';
 
-function getComponent() {
+function component() {
     const element = document.createElement('div');
+
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
     element.classList.add('hello');
 
-    return import('lodash').then(({ default: _ }) => {
+    const btn = document.createElement('button');
+    btn.innerHTML = 'Click me and check the console!';
+    btn.onclick = Print.bind(null, 'Hello webpack!');;
+    element.appendChild(btn);
 
-      element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    // 将图像添加到我们已经存在的 div 中。
+    const myIcon = new Image();
+    myIcon.src = img;
 
-      return element;
-    }).catch((error) => 'An error occurred while loading the component');
+    element.appendChild(myIcon);
+
+    return element;
 }
-
-getComponent().then((component) => {
-    document.body.appendChild(component);
-});
+document.body.appendChild(component());
