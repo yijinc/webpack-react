@@ -3,16 +3,24 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    // another: './src/another-module.js',
+  },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
   },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true, // 每次构建前清理 /dist 文件夹
   },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //   },
+  // },
   module: {
     rules: [
       {
