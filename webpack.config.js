@@ -10,6 +10,7 @@ module.exports = {
   devtool: 'eval-cheap-module-source-map',
   devServer: {
     contentBase: './dist',
+    hot: true, // hot module replacement 
   },
   output: {
     filename: '[name].[contenthash].js',
