@@ -9,6 +9,7 @@ module.exports = merge(common, {
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: 'images/[hash][ext][query]',
     clean: true, // 每次构建前清理 /dist 文件夹
   },
   plugins: [

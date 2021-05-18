@@ -6,6 +6,8 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
 }
 
+console.log('__webpack_public_path__', __webpack_public_path__)
+console.log('import.meta', import.meta)
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
